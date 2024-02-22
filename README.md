@@ -1,8 +1,7 @@
-# Subtitle_time_shift
-		READ ME
+#		READ ME
 Creates new copy of an srt file with time shifted frowards or backwards by a desired amount
 
-		INSTRUCTIONS
+#		INSTRUCTIONS
 1) Select srt file in question
 2) Enter desired time shift 
 	- in seconds
