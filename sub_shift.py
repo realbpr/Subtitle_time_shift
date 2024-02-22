@@ -86,8 +86,8 @@ oldSub.close()
 newSub.close()
 
 # make sure previous new_sub.srt is deleted (else won't let us write new one)
-prev_srt = Path('new_sub.srt')
-if prev_srt.is_file():  # checks if a previous new_sub.srt exists
+prev_srt = Path(newSub)
+if prev_srt.is_file():  # checks if a previous new_sub.srt exists in og srt location
     prev_srt.unlink()  # deletes it
 
 # convert newSub.txt to newSub.srt
@@ -96,5 +96,3 @@ newSub_srt.rename(newSub_srt.with_suffix('.srt'))
 
 txt = Path(txt)  # txt was a string, is now a proper path
 txt.rename(txt.with_suffix('.srt'))  # converts original srt file back to srt again since not needed anymore
-
-
