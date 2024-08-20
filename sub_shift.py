@@ -1,20 +1,23 @@
 import tkinter as tk
 from tkinter import filedialog
 from pathlib import Path
+import os
 
 root = tk.Tk()  # creates main window
 root.withdraw()  # hide window until called for
 
 srt_path = filedialog.askopenfilename()  # prompt window for choosing file path of srt file
 srt = Path(srt_path)
-srt.rename(srt.with_suffix('.txt'))  # converts srt file to txt
-txt = str(srt)[:-4] + '.txt'  # get new file path string now that it's a .txt
 
 
-shift = float(input("Enter desired time shift (seconds): "))  # user inputs desried time shift
+filename = os.path.basename(str(srt))
+newname = filename[:-4] + "_FIXED"
 
-oldSub = open(txt, 'r', encoding='UTF8')
-new_sub = str(srt.resolve().parent) + r"\new_sub.txt"  # complete file path and name of new_sub.txt which we will create
+shift = float(input("Enter desired time shift (seconds): "))  # user inputs desired time shift
+
+oldSub = open(srt, 'r', encoding='UTF8')
+
+new_sub = str(srt.resolve().parent) + r"\\" + newname + ".srt"  # complete file path and name of new_sub.txt which we will create
 newSub = open(new_sub, 'w', encoding='UTF8')
 
 oldLines = oldSub.readlines()  # sets up array of lines of old subtitle file
@@ -84,15 +87,3 @@ for k in range(len(newLines)):  # updates new_sub.txt
 # closes file to stop writing, can now change txt to srt
 oldSub.close()
 newSub.close()
-
-# make sure previous new_sub.srt is deleted (else won't let us write new one)
-prev_srt = Path(newSub)
-if prev_srt.is_file():  # checks if a previous new_sub.srt exists in og srt location
-    prev_srt.unlink()  # deletes it
-
-# convert newSub.txt to newSub.srt
-newSub_srt = Path(new_sub)
-newSub_srt.rename(newSub_srt.with_suffix('.srt'))
-
-txt = Path(txt)  # txt was a string, is now a proper path
-txt.rename(txt.with_suffix('.srt'))  # converts original srt file back to srt again since not needed anymore
