@@ -16,6 +16,7 @@ newname = filename[:-4] + "_FIXED"
 shift = float(input("Enter desired time shift (seconds): "))  # user inputs desired time shift
 
 oldSub = open(srt, 'r', encoding='UTF8')
+#oldSub = open(srt, 'r')   # in case get error of utf8 not reading a character
 
 new_sub = str(srt.resolve().parent) + r"\\" + newname + ".srt"  # complete file path and name of new_sub.txt which we will create
 newSub = open(new_sub, 'w', encoding='UTF8')
